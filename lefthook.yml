@@ -1,0 +1,19 @@
+# Lefthook configuration for AuditTrail
+# https://github.com/evilmartians/lefthook
+
+pre-commit:
+  parallel: true
+  commands:
+    lint:
+      glob: '*.{js,ts,tsx,jsx,mjs,mts}'
+      run: npx eslint {staged_files} --max-warnings 0
+    format:
+      glob: '*.{js,ts,tsx,jsx,mjs,mts,json,css,md}'
+      run: npx prettier --check {staged_files}
+    typecheck:
+      run: npm run typecheck
+
+commit-msg:
+  commands:
+    commitlint:
+      run: npx commitlint --edit

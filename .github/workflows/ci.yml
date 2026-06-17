@@ -1,0 +1,59 @@
+name: AuditTrail CI Pipeline
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Lint, Format & Typecheck
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Check Code Formatting (Prettier)
+        run: npm run format
+
+      - name: Lint Codebase (ESLint)
+        run: npm run lint
+
+      - name: Validate TypeScript Compile (tsc)
+        run: npm run typecheck
+
+  test-and-build:
+    name: Run Unit Tests & Build Check
+    runs-on: ubuntu-latest
+    needs: validate
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Unit Tests (Vitest)
+        run: npm test
+
+      - name: Execute Dry-Run Build (Next.js)
+        run: npm run build
