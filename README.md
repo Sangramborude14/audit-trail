@@ -130,6 +130,35 @@ Since local dev runs on `localhost:3000` (which lacks DNS subdomains), you can t
 
 ---
 
+## 🌟 Interactive Hackathon Features
+
+We have built specific, highly interactive features for hackathon judges to verify the core value and security logic of the platform directly in the browser:
+
+### 1. Zero-Secrets OIDC Trust Sandbox
+Accessible via the **OIDC Identity Sandbox** tab:
+- Demonstrates the federated token exchange flow in a visual step-by-step UI.
+- Simulates requesting temporary access tokens from AWS STS.
+- Displays the decrypted Vercel OIDC JWT claim payload and the AWS IAM Role Trust Policy.
+- Renders the retrieved short-lived Access Key, Secret Key, and Session Token alongside a dynamic 15-minute countdown clock showing key expiration.
+
+### 2. AI-Powered Cloud Drift Detector
+Accessible via the **AI Drift Detector** tab:
+- Compares declared compliance target baselines against drifted active AWS configurations (e.g., S3 bucket encryption, open SSH ports on security groups, or wildcard IAM policies).
+- Computes difference diffs and details the detected gaps in red/green code formatting.
+- Generates copy-pasteable CLI commands to instantly correct the drift and return the system to compliance.
+
+### 3. 'Fix with AI' Auto-Remediation Drawer
+On the main **Overview Dashboard** framework checklists:
+- Clicking "Fix with AI" next to any failing control card triggers a sliding code drawer showing a side-by-side patch diff.
+- Allows developers to inspect the before/after Terraform code and copy the corrected baseline code to their clipboard.
+
+### 4. Executive CSV & PDF Reports
+In the dashboard header:
+- **Export as CSV Log**: Generates and downloads a CSV spreadsheet listing all framework controls, descriptions, severities, and compliance states.
+- **Export as PDF Report**: Triggers `window.print()` using specific print styles that hide terminal terminals, menus, and selector tabs to output a clean, physical audit report.
+
+---
+
 ## 🧪 Verification & Testing
 
 Our testing suites enforce type-safety, formatting, security patterns, and user journey paths.
