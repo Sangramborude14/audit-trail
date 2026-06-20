@@ -44,6 +44,13 @@ describe('AuditTrail Db Isolation & Authorization Security Guard Tests', () => {
       );
       expect(mockSend).not.toHaveBeenCalled();
     });
+
+    it('should instantly throw a security alert when tenantId contains delimiter characters', async () => {
+      await expect(dbClient.getTenantConfig('Tenant#A')).rejects.toThrow(
+        'SECURITY_ALERT: Catastrophic Authorization Failure.'
+      );
+      expect(mockSend).not.toHaveBeenCalled();
+    });
   });
 
   describe('Test 2: Malicious Tenant Isolation Bypass Blocker', () => {

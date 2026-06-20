@@ -13,7 +13,6 @@ const eslintConfig = defineConfig([
     'dist/**',
     'node_modules/**',
     'frontend/node_modules/**',
-    'backend/**',
     'next-env.d.ts',
     'frontend/next-env.d.ts',
     '.sst/**',
